@@ -495,3 +495,56 @@ ggplot(weekday_sleep, aes(weekday, daily_sleep)) +
 **Hourly intensities through the day**
 
 Split the datetime column into date and time columns
+
+```{r}
+hourly_intensities <- hourly_intensities %>%
+  separate(date_time, into = c("date", "time"), sep= " ") 
+
+head(hourly_intensities)
+
+hourly_intensities <- hourly_intensities %>%
+  group_by(time) %>%
+  drop_na() %>%
+  summarise(mean_total_int = mean(totalintensity))
+
+```
+
+Make visualization of the hourly intensities data
+
+```{r}
+ggplot(data = hourly_intensities, aes(x = time, y = mean_total_int)) + geom_histogram(stat = "identity", fill='purple') +
+  theme(axis.text.x = element_text(angle = 90)) +
+  labs(title="Average Total Intensity vs. Time")
+
+```
+
+Discoveries after analyzing hourly intensities
+
+-   People are more active between 5am and 10pm.
+
+-   Most of the activity happens between 5 pm and 7 pm --- I suppose
+    that when people are done with work for the day, they go to the gym
+    or take a walk. We can use this period of time to remind and
+    motivate users to go for a run or walk using the Bellabeat app.
+
+**Hourly steps throughout the day**
+
+Separating the datetime column into date and time column
+
+```{r}
+daily_activity_sleep <- daily_activity_sleep %>%
+  na.omit() 
+
+daily_counts <- table(daily_activity_sleep$id) 
+
+active_users <- sum(daily_counts == 31) 
+regular_users <- sum(daily_counts > 15) 
+occasional_users <- sum(daily_counts < 16) 
+
+# Print the results
+cat("Number of active users:", active_users, "\n")
+cat("Number of regular users:", regular_users, "\n")
+cat("Number of occasional users:", occasional_users, "\n")
+```
+
+
