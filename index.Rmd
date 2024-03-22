@@ -548,3 +548,19 @@ cat("Number of occasional users:", occasional_users, "\n")
 ```
 
 
+Create a percentage data frame to better visualize the results in the
+graph
+
+```{r}
+total_users <- length(unique(daily_activity_sleep$id))
+active_percentage <- (active_users / total_users) * 100
+regular_percentage <- (regular_users / total_users) * 100
+occasional_percentage <- (occasional_users / total_users) * 100
+
+percentage_df <- data.frame(
+  Category = c("Active Users", "Regular Users", "Occasional Users"),
+  Percentage = c(active_percentage, regular_percentage, occasional_percentage)
+)
+
+```
+

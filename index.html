@@ -824,6 +824,17 @@ cat(&quot;Number of active users:&quot;, active_users, &quot;\n&quot;)</code></p
 <pre><code>## Number of regular users: 21</code></pre>
 <pre class="r"><code>cat(&quot;Number of occasional users:&quot;, occasional_users, &quot;\n&quot;)</code></pre>
 <pre><code>## Number of occasional users: 0</code></pre>
+<p>Create a percentage data frame to better visualize the results in the
+graph</p>
+<pre class="r"><code>total_users &lt;- length(unique(daily_activity_sleep$id))
+active_percentage &lt;- (active_users / total_users) * 100
+regular_percentage &lt;- (regular_users / total_users) * 100
+occasional_percentage &lt;- (occasional_users / total_users) * 100
+
+percentage_df &lt;- data.frame(
+  Category = c(&quot;Active Users&quot;, &quot;Regular Users&quot;, &quot;Occasional Users&quot;),
+  Percentage = c(active_percentage, regular_percentage, occasional_percentage)
+)</code></pre>
 </div>
 
 
