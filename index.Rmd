@@ -191,5 +191,146 @@ print("Hourly Steps") head(hourly_Steps)
 
 print("Weight Log") head(weight_log)
 
+```{r}
+print("Daily Activity")
+head(daily_activity)
+```
+
+**Check the data structure using str()**
+
+str(daily_activity)
+
+str(daily_sleep)
+
+str(hourly_calories)
+
+str(hourly_intensities)
+
+str(hourly_steps)
+
+str(weight_log)
+
+```{r}
+str(daily_sleep)
+```
+
+**Format and clean dataframes** I've familiarized myself with the data
+set.I'll check for numbers of inconsistencies and errors,and check the
+numbers of unique users per dataframe before cleaning.
+
+unique(daily_activity\$Id)
+
+unique(daily_sleep\$Id)
+
+unique(hourly_calories\$Id)
+
+unique(hourly_intensities\$Id)
+
+unique(hourly_steps\$Id)
+
+unique(weight_log\$Id)
+
+```{r}
+# unique users
+unique(daily_activity$Id)
+```
+
+All data sets have 33 participants each except the daily_sleep and
+weight data set which has 24 and 8 participants respectively. The weight
+log dataset has 8 participants which is not a sufficient amount to use
+for the analysis.
+
+**Check for duplicates** sum(duplicated(daily_activity))
+
+sum(duplicated(daily_sleep))
+
+sum(duplicated(hourly_calories))
+
+sum(duplicated(hourly_intensities))
+
+sum(duplicated(hourly_steps))
+
+```{r}
+# checking for duplicates
+
+sum(duplicated(daily_sleep))
+```
+
+**Remove duplicates and missing values**
+
+daily_activity \<- daily_activity %\>% distinct() %\>% drop_na()
+
+daily_sleep \<- daily_sleep %\>% distinct() %\>% drop_na()
+
+hourly_calories \<- hourly_calories %\>% distinct() %\>% drop_na()
+
+hourly_intensities \<- hourly_intensities %\>% distinct() %\>% drop_na()
+
+hourly_steps \<- hourly_steps %\>% distinct() %\>% drop_na() 
+
+
+**Clean and rename columns**
+
+clean_names(daily_activity)
+daily_activity <- rename_with(daily_activity, tolower)
+
+clean_names(daily_sleep)
+daily_sleep <- rename_with(daily_sleep, tolower)
+
+clean_names(daily_steps)
+daily_steps <- rename_with(daily_steps, tolower)
+
+clean_names(hourly_calories)
+hourly_calories <- rename_with(hourly_calories, tolower)
+
+clean_names(hourly_intensities)
+hourly_intensities <- rename_with(hourly_intensities, tolower)
+
+clean_names(hourly_steps)
+hourly_steps <- rename_with(hourly_steps, tolower)
+
+
+```{r Rename Table, include=FALSE}
+
+# Clean and rename column names in daily_activity
+clean_names(daily_activity)
+daily_activity <- rename_with(daily_activity, tolower)
+
+# Summary statistics for daily_activity
+summary_daily_activity <- summary(daily_activity)
+print(summary_daily_activity)
+
+# Clean and rename column names in daily_sleep
+clean_names(daily_sleep)
+daily_sleep <- rename_with(daily_sleep, tolower)
+
+# Summary statistics for daily_sleep
+summary_daily_sleep <- summary(daily_sleep)
+print(summary_daily_sleep)
+
+# Clean and rename column names in hourly_calories
+clean_names(hourly_calories)
+hourly_calories <- rename_with(hourly_calories, tolower)
+
+# Summary statistics for hourly_calories
+summary_hourly_calories <- summary(hourly_calories)
+print(summary_hourly_calories)
+
+# Clean and rename column names in hourly_intensities
+clean_names(hourly_intensities)
+hourly_intensities <- rename_with(hourly_intensities, tolower)
+
+# Summary statistics for hourly_intensities
+summary_hourly_intensities <- summary(hourly_intensities)
+print(summary_hourly_intensities)
+
+# Clean and rename column names in hourly_steps
+clean_names(hourly_steps)
+hourly_steps <- rename_with(hourly_steps, tolower)
+
+# Summary statistics for hourly_steps
+summary_hourly_steps <- summary(hourly_steps)
+print(summary_hourly_steps)
+```
 
 

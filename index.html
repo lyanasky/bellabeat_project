@@ -534,6 +534,106 @@ weight_log &lt;- read.csv(&quot;weight_log.csv&quot;)</code></pre>
 <p>print(“Hourly Intensities”) head(hourly_intensities)</p>
 <p>print(“Hourly Steps”) head(hourly_Steps)</p>
 <p>print(“Weight Log”) head(weight_log)</p>
+<pre class="r"><code>print(&quot;Daily Activity&quot;)</code></pre>
+<pre><code>## [1] &quot;Daily Activity&quot;</code></pre>
+<pre class="r"><code>head(daily_activity)</code></pre>
+<pre><code>##           Id ActivityDate TotalSteps TotalDistance TrackerDistance
+## 1 1503960366    4/12/2016      13162          8.50            8.50
+## 2 1503960366    4/13/2016      10735          6.97            6.97
+## 3 1503960366    4/14/2016      10460          6.74            6.74
+## 4 1503960366    4/15/2016       9762          6.28            6.28
+## 5 1503960366    4/16/2016      12669          8.16            8.16
+## 6 1503960366    4/17/2016       9705          6.48            6.48
+##   LoggedActivitiesDistance VeryActiveDistance ModeratelyActiveDistance
+## 1                        0               1.88                     0.55
+## 2                        0               1.57                     0.69
+## 3                        0               2.44                     0.40
+## 4                        0               2.14                     1.26
+## 5                        0               2.71                     0.41
+## 6                        0               3.19                     0.78
+##   LightActiveDistance SedentaryActiveDistance VeryActiveMinutes
+## 1                6.06                       0                25
+## 2                4.71                       0                21
+## 3                3.91                       0                30
+## 4                2.83                       0                29
+## 5                5.04                       0                36
+## 6                2.51                       0                38
+##   FairlyActiveMinutes LightlyActiveMinutes SedentaryMinutes Calories
+## 1                  13                  328              728     1985
+## 2                  19                  217              776     1797
+## 3                  11                  181             1218     1776
+## 4                  34                  209              726     1745
+## 5                  10                  221              773     1863
+## 6                  20                  164              539     1728</code></pre>
+<p><strong>Check the data structure using str()</strong></p>
+<p>str(daily_activity)</p>
+<p>str(daily_sleep)</p>
+<p>str(hourly_calories)</p>
+<p>str(hourly_intensities)</p>
+<p>str(hourly_steps)</p>
+<p>str(weight_log)</p>
+<pre class="r"><code>str(daily_sleep)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    413 obs. of  5 variables:
+##  $ Id                : num  1.5e+09 1.5e+09 1.5e+09 1.5e+09 1.5e+09 ...
+##  $ SleepDay          : chr  &quot;4/12/2016 12:00:00 AM&quot; &quot;4/13/2016 12:00:00 AM&quot; &quot;4/15/2016 12:00:00 AM&quot; &quot;4/16/2016 12:00:00 AM&quot; ...
+##  $ TotalSleepRecords : int  1 2 1 2 1 1 1 1 1 1 ...
+##  $ TotalMinutesAsleep: int  327 384 412 340 700 304 360 325 361 430 ...
+##  $ TotalTimeInBed    : int  346 407 442 367 712 320 377 364 384 449 ...</code></pre>
+<p><strong>Format and clean dataframes</strong> I’ve familiarized myself
+with the data set.I’ll check for numbers of inconsistencies and
+errors,and check the numbers of unique users per dataframe before
+cleaning.</p>
+<p>unique(daily_activity$Id)</p>
+<p>unique(daily_sleep$Id)</p>
+<p>unique(hourly_calories$Id)</p>
+<p>unique(hourly_intensities$Id)</p>
+<p>unique(hourly_steps$Id)</p>
+<p>unique(weight_log$Id)</p>
+<pre class="r"><code># unique users
+unique(daily_activity$Id)</code></pre>
+<pre><code>##  [1] 1503960366 1624580081 1644430081 1844505072 1927972279 2022484408
+##  [7] 2026352035 2320127002 2347167796 2873212765 3372868164 3977333714
+## [13] 4020332650 4057192912 4319703577 4388161847 4445114986 4558609924
+## [19] 4702921684 5553957443 5577150313 6117666160 6290855005 6775888955
+## [25] 6962181067 7007744171 7086361926 8053475328 8253242879 8378563200
+## [31] 8583815059 8792009665 8877689391</code></pre>
+<p>All data sets have 33 participants each except the daily_sleep and
+weight data set which has 24 and 8 participants respectively. The weight
+log dataset has 8 participants which is not a sufficient amount to use
+for the analysis.</p>
+<p><strong>Check for duplicates</strong>
+sum(duplicated(daily_activity))</p>
+<p>sum(duplicated(daily_sleep))</p>
+<p>sum(duplicated(hourly_calories))</p>
+<p>sum(duplicated(hourly_intensities))</p>
+<p>sum(duplicated(hourly_steps))</p>
+<pre class="r"><code># checking for duplicates
+
+sum(duplicated(daily_sleep))</code></pre>
+<pre><code>## [1] 3</code></pre>
+<p><strong>Remove duplicates and missing values</strong></p>
+<p>daily_activity &lt;- daily_activity %&gt;% distinct() %&gt;%
+drop_na()</p>
+<p>daily_sleep &lt;- daily_sleep %&gt;% distinct() %&gt;% drop_na()</p>
+<p>hourly_calories &lt;- hourly_calories %&gt;% distinct() %&gt;%
+drop_na()</p>
+<p>hourly_intensities &lt;- hourly_intensities %&gt;% distinct() %&gt;%
+drop_na()</p>
+<p>hourly_steps &lt;- hourly_steps %&gt;% distinct() %&gt;%
+drop_na()</p>
+<p><strong>Clean and rename columns</strong></p>
+<p>clean_names(daily_activity) daily_activity &lt;-
+rename_with(daily_activity, tolower)</p>
+<p>clean_names(daily_sleep) daily_sleep &lt;- rename_with(daily_sleep,
+tolower)</p>
+<p>clean_names(daily_steps) daily_steps &lt;- rename_with(daily_steps,
+tolower)</p>
+<p>clean_names(hourly_calories) hourly_calories &lt;-
+rename_with(hourly_calories, tolower)</p>
+<p>clean_names(hourly_intensities) hourly_intensities &lt;-
+rename_with(hourly_intensities, tolower)</p>
+<p>clean_names(hourly_steps) hourly_steps &lt;-
+rename_with(hourly_steps, tolower)</p>
 </div>
 
 
