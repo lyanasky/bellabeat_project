@@ -564,3 +564,132 @@ percentage_df <- data.frame(
 
 ```
 
+Make a visualization of the smart device usage per user
+
+```{r}
+library(ggplot2)
+
+# Sample data
+percentage_df <- data.frame(
+  Category = c("Active Users", "Regular Users", "Occasional Users"),
+  Percentage = c(60, 25, 15)
+)
+
+# Create the visualization
+ggplot(percentage_df, aes(x = "", y = Percentage, fill = Category)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar("y", start = 0) +
+  theme_minimal() +
+  theme(
+    axis.title.x = element_blank(),
+    axis.title.y = element_blank(),
+    panel.border = element_blank(),
+    panel.grid = element_blank(),
+    axis.ticks = element_blank(),
+    axis.text.x = element_blank(),
+    plot.title = element_text(hjust = 0.5, size = 14, face = "bold")
+  ) +
+  geom_text(aes(label = paste0(Percentage, "%")),
+            position = position_stack(vjust = 0.5)) +
+  scale_fill_manual(
+    values = c("#008080", "#d62d58", 'purple'),
+    labels = c(
+      "Active Users",
+      "Regular Users",
+      "Occasional Users"
+    )
+  ) +
+  labs(title = "Daily Use of Smart Device", fill = "User Category")
+```
+
+From the above visualization we can deduce that:
+
+-   60% of the users of our sample use their device frequently ---
+    between 21 to 31 days.
+
+-   25% are are occasional users (they use their device for 11 to 20
+    days).
+
+-   15% of our sample are regular user of their device.
+
+\*\*6. ACT Phase (Conclusion)
+
+Bellabeat companmy was created with a mission to empower women by
+providing them with the data to discover more about their health and
+habits.
+
+I did an analysis on the average number of steps, hours of sleep and
+calories burned.I also focused on the days which users are most active,
+the time of the day with the most activity and went further to analyze
+how the device was used by each user.
+
+After analyzing the FitBit Fitness data, I will respond to the business
+task of helping Bellabeat on its marketing stratergy based on my
+results;
+
+I would advice that for further analysis, we use tracking data from
+Bellabeat's device.
+
+The datasets used have a small sample and can be biased since we didn't
+have any demographic details of users.
+
+-   **Target audience**
+
+Our main target are young and adult women who work full-time
+jobs(according to hourly intensities data) and these women do some light
+activity to stay healthy (according to the activity type analysis). I
+would encourage to continue finding trends to be able to create a
+marketing stragety focused on them and provide knowledge about
+developing healthy habits.
+
+That being said, these are my recommendations for Bellabeat company;
+
+-   **Recommendation for the app**
+
+-   **Daily notification on steps taken**
+
+According to CDC taking 8,000 steps per day was associated with a 51%
+lower risk for all-cause mortality (or death from all causes). Taking
+12,000 steps per day was associated with a 65% lower risk compared with
+taking 4,000 steps. Bellabeat can encourage people to take at least 8
+000 explaining the benefits for their health. Sending notifications
+daily at different times will make users conscious of the number of
+steps achieved so far and encourage them to meet the set target of 8000
+steps according to CDC. The app can also educate users on the health
+benefits of walking the daily recommended number of steps.
+
+-   **Daily notification on sleep**
+
+From the results of my analysis, I can see that users have less than the
+recommended amount of sleep in a day. We can enable a feature on the app
+that allows user set up a desired time to go to sleep and receive a
+notification minutes before to prepare to sleep or set up an alarm to
+sleep.
+
+-   **Notification based on user needs**
+
+If users want to lose weight, controlling daily calorie consumption is a
+good idea.The Bellabeat can suggest some ideas for low-calorie food to
+such users.
+
+-   **Reward system** We can cvreate a reward system based on the level
+    of activity on the app. The app could consist of stages to reach
+    based on the amount of steps walked everyday. You need to maintain
+    activity level for a period of time (maybe a month) to pass to the
+    next level. For each level you would win certain amount of stars
+    that would be converted into discount on other Bellabeat products.
+
+-   **Recommendation for the online campaign** Make sure the online
+    campaign portrays the Bellabeat app more than just a fitness
+    activity app. It should be seen as a guide that empowers women to
+    strike a balance in their personal and professional life and their
+    health habits by educating and motivating them through daily app
+    recommendations.
+
+
+### Session Info:
+
+```{r}
+sessionInfo()
+```
+
