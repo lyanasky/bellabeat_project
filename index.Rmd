@@ -1,8 +1,12 @@
 ---
-title: "Bellabeat Capstone Project"
+title: "Bellabeat Capstone Project Using R Programming Language"
 author: "Eliana Walters"
 date: "2024-03-22"
-output: html_document
+output: 
+  html_document: 
+    theme: journal
+    highlight: espresso
+    toc: yes
 ---
 
 This a project documentation for Bellabeat case study from the Google
@@ -672,7 +676,7 @@ If users want to lose weight, controlling daily calorie consumption is a
 good idea.The Bellabeat can suggest some ideas for low-calorie food to
 such users.
 
--   **Reward system** We can cvreate a reward system based on the level
+-   **Reward system** We can create a reward system based on the level
     of activity on the app. The app could consist of stages to reach
     based on the amount of steps walked everyday. You need to maintain
     activity level for a period of time (maybe a month) to pass to the
