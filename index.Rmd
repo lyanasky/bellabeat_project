@@ -334,3 +334,91 @@ print(summary_hourly_steps)
 ```
 
 
+
+**Date and Time column**
+
+daily_activity \<- daily_activity %\>% rename(date = activitydate) %\>%
+mutate(date = as_date(date, format = "%m/%d/%Y"))
+
+daily_sleep \<- daily_sleep %\>% rename(date = sleepday) %\>%
+mutate(date = as.Date(date))
+
+hourly_calories \<- hourly_calories %\>% rename(date_time =
+activityhour) %\>% mutate(date_time = as.POSIXct(date_time, format
+="%m/%d/%Y %I:%M:%S %p" , tz=Sys.timezone()))
+
+hourly_intensities \<- hourly_intensities %\>% rename(date_time =
+activityhour) %\>% mutate(date_time = as.POSIXct(date_time, format
+="%m/%d/%Y %I:%M:%S %p" , tz=Sys.timezone()))
+
+hourly_steps\<- hourly_steps %\>% rename(date_time = activityhour) %\>%
+mutate(date_time = as.POSIXct(date_time, format ="%m/%d/%Y %I:%M:%S %p"
+, tz=Sys.timezone()))
+
+
+```{r}
+daily_activity <- daily_activity %>%
+  rename(date = activitydate) %>%
+  mutate(date = as_date(date, format = "%m/%d/%Y"))
+  
+  daily_sleep <- daily_sleep %>%
+  rename(date = sleepday) %>%
+  mutate(date = as.Date(date))
+
+hourly_calories <- hourly_calories %>% 
+  rename(date_time = activityhour) %>% 
+  mutate(date_time = as.POSIXct(date_time, format ="%m/%d/%Y %I:%M:%S %p" , tz=Sys.timezone()))
+
+hourly_intensities <- hourly_intensities %>% 
+  rename(date_time = activityhour) %>% 
+  mutate(date_time = as.POSIXct(date_time, format ="%m/%d/%Y %I:%M:%S %p" , tz=Sys.timezone()))
+  
+  hourly_steps<- hourly_steps %>% 
+  rename(date_time = activityhour) %>% 
+  mutate(date_time = as.POSIXct(date_time, format ="%m/%d/%Y %I:%M:%S %p" , tz=Sys.timezone()))
+```
+
+
+
+**4.6.4 Merging the data sets**
+
+```{r}
+# daily_activity_sleep <- merge(daily_activity, daily_sleep, by = "id")
+```
+
+```{r}
+daily_activity_sleep <- merge(daily_activity, daily_sleep, by = "id")
+```
+
+
+# **Analyze and Share phases** 
+
+Analyzing trends of the users of FitBit to
+determine how my insights can drive business in BellaBeat's marketing
+strategy.
+
+**Summarize and explore each data set**
+
+```{r}
+daily_activity %>%  
+  select(totalsteps,
+         totaldistance,
+         sedentaryminutes, calories) %>%
+  summary()
+```
+
+**Discoveries from the summary** - The Average total steps is 7638 in a
+day. The daily recommended amount of steps to be taken per day is 7500
+
+-   Sedentary minutes on an average is 991(\~17 hours). This should be
+    minimized.
+
+-   Majority of the participants are light users.
+
+-   Participants sleep for an average of 419 minutes (\~7 hours).
+
+-   A total of 97 calories is burned per hour on a average.
+
+**Actual Steps taken and Calories burned** I am making a visualization
+to see if there's a correlation between steps taken and the amount of
+calories burned.

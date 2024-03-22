@@ -634,6 +634,75 @@ rename_with(hourly_calories, tolower)</p>
 rename_with(hourly_intensities, tolower)</p>
 <p>clean_names(hourly_steps) hourly_steps &lt;-
 rename_with(hourly_steps, tolower)</p>
+<p><strong>Date and Time column</strong></p>
+<p>daily_activity &lt;- daily_activity %&gt;% rename(date =
+activitydate) %&gt;% mutate(date = as_date(date, format =
+“%m/%d/%Y”))</p>
+<p>daily_sleep &lt;- daily_sleep %&gt;% rename(date = sleepday) %&gt;%
+mutate(date = as.Date(date))</p>
+<p>hourly_calories &lt;- hourly_calories %&gt;% rename(date_time =
+activityhour) %&gt;% mutate(date_time = as.POSIXct(date_time, format
+=“%m/%d/%Y %I:%M:%S %p” , tz=Sys.timezone()))</p>
+<p>hourly_intensities &lt;- hourly_intensities %&gt;% rename(date_time =
+activityhour) %&gt;% mutate(date_time = as.POSIXct(date_time, format
+=“%m/%d/%Y %I:%M:%S %p” , tz=Sys.timezone()))</p>
+<p>hourly_steps&lt;- hourly_steps %&gt;% rename(date_time =
+activityhour) %&gt;% mutate(date_time = as.POSIXct(date_time, format
+=“%m/%d/%Y %I:%M:%S %p” , tz=Sys.timezone()))</p>
+<pre class="r"><code>daily_activity &lt;- daily_activity %&gt;%
+  rename(date = activitydate) %&gt;%
+  mutate(date = as_date(date, format = &quot;%m/%d/%Y&quot;))
+  
+  daily_sleep &lt;- daily_sleep %&gt;%
+  rename(date = sleepday) %&gt;%
+  mutate(date = as.Date(date))
+
+hourly_calories &lt;- hourly_calories %&gt;% 
+  rename(date_time = activityhour) %&gt;% 
+  mutate(date_time = as.POSIXct(date_time, format =&quot;%m/%d/%Y %I:%M:%S %p&quot; , tz=Sys.timezone()))
+
+hourly_intensities &lt;- hourly_intensities %&gt;% 
+  rename(date_time = activityhour) %&gt;% 
+  mutate(date_time = as.POSIXct(date_time, format =&quot;%m/%d/%Y %I:%M:%S %p&quot; , tz=Sys.timezone()))
+  
+  hourly_steps&lt;- hourly_steps %&gt;% 
+  rename(date_time = activityhour) %&gt;% 
+  mutate(date_time = as.POSIXct(date_time, format =&quot;%m/%d/%Y %I:%M:%S %p&quot; , tz=Sys.timezone()))</code></pre>
+<p><strong>4.6.4 Merging the data sets</strong></p>
+<pre class="r"><code># daily_activity_sleep &lt;- merge(daily_activity, daily_sleep, by = &quot;id&quot;)</code></pre>
+<pre class="r"><code>daily_activity_sleep &lt;- merge(daily_activity, daily_sleep, by = &quot;id&quot;)</code></pre>
+</div>
+<div id="analyze-and-share-phases" class="section level1">
+<h1><strong>Analyze and Share phases</strong></h1>
+<p>Analyzing trends of the users of FitBit to determine how my insights
+can drive business in BellaBeat’s marketing strategy.</p>
+<p><strong>Summarize and explore each data set</strong></p>
+<pre class="r"><code>daily_activity %&gt;%  
+  select(totalsteps,
+         totaldistance,
+         sedentaryminutes, calories) %&gt;%
+  summary()</code></pre>
+<pre><code>##    totalsteps    totaldistance    sedentaryminutes    calories   
+##  Min.   :    0   Min.   : 0.000   Min.   :   0.0   Min.   :   0  
+##  1st Qu.: 3790   1st Qu.: 2.620   1st Qu.: 729.8   1st Qu.:1828  
+##  Median : 7406   Median : 5.245   Median :1057.5   Median :2134  
+##  Mean   : 7638   Mean   : 5.490   Mean   : 991.2   Mean   :2304  
+##  3rd Qu.:10727   3rd Qu.: 7.713   3rd Qu.:1229.5   3rd Qu.:2793  
+##  Max.   :36019   Max.   :28.030   Max.   :1440.0   Max.   :4900</code></pre>
+<p><strong>Discoveries from the summary</strong> - The Average total
+steps is 7638 in a day. The daily recommended amount of steps to be
+taken per day is 7500</p>
+<ul>
+<li><p>Sedentary minutes on an average is 991(~17 hours). This should be
+minimized.</p></li>
+<li><p>Majority of the participants are light users.</p></li>
+<li><p>Participants sleep for an average of 419 minutes (~7
+hours).</p></li>
+<li><p>A total of 97 calories is burned per hour on a average.</p></li>
+</ul>
+<p><strong>Actual Steps taken and Calories burned</strong> I am making a
+visualization to see if there’s a correlation between steps taken and
+the amount of calories burned.</p>
 </div>
 
 
