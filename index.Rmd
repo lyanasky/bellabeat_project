@@ -164,5 +164,32 @@ library(here)
 library(lubridate)
 library(janitor)
 library(skimr)
+```
+
+**Importing dataset**
+
+```{r}
+daily_activity <- read.csv("daily_activity.csv")
+daily_sleep <- read.csv("daily_sleep.csv")
+hourly_calories <- read.csv("hourly_calories.csv")
+hourly_intensities <- read.csv("hourly_intensities.csv")
+hourly_steps <- read.csv("hourly_steps.csv")
+weight_log <- read.csv("weight_log.csv")
+```
+
+**Data preview**
+
+print("Daily Activity") head(daily_activity)
+
+print("Day Sleep") head(daily_sleep)
+
+print("Hourly Calories") head(hourly_calories)
+
+print("Hourly Intensities") head(hourly_intensities)
+
+print("Hourly Steps") head(hourly_Steps)
+
+print("Weight Log") head(weight_log)
+
 
 
