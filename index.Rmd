@@ -422,3 +422,76 @@ day. The daily recommended amount of steps to be taken per day is 7500
 **Actual Steps taken and Calories burned** I am making a visualization
 to see if there's a correlation between steps taken and the amount of
 calories burned.
+
+```{r}
+ggplot(data = daily_activity, aes(x = totalsteps, y = calories)) + 
+  geom_point() + geom_smooth() + labs(title ="Total Steps vs. Calories")
+```
+
+There is a correlation between total steps taken and the amount of
+calories burned.
+
+
+**Steps per weekday**
+
+```{r}
+ weekday_steps <- daily_activity %>%
+  mutate(weekday = weekdays(date))
+
+weekday_steps$weekday <- ordered(weekday_steps$weekday, levels = c("Monday", "Tuesday", "Wednesday", "Thursday",
+                                                                   "Friday", "Saturday", "Sunday"))
+
+weekday_steps <- weekday_steps %>%
+  group_by(weekday) %>%
+  summarize(daily_steps = mean(totalsteps))
+
+head(weekday_steps)
+```
+
+Visualize steps per weekday
+
+```{r}
+ggplot(weekday_steps, aes(weekday, daily_steps)) +
+  geom_col(fill ="#008080" ) +
+  geom_hline(yintercept = 7500) +
+  labs(title = "Daily steps per weekday", x= "", y = "") +
+  theme(axis.text.x = element_text(angle = 45,vjust = 0.5, hjust = 1))
+
+```
+
+**Sleep per weekday** To know what day of the week users sleep the most
+
+```{r}
+weekday_sleep <- daily_sleep %>%
+  mutate(weekday = weekdays(date))
+weekday_sleep$weekday <-ordered(weekday_sleep$weekday, levels=c("Monday", "Tuesday", "Wednesday", "Thursday",
+                                                                "Friday", "Saturday", "Sunday"))
+
+weekday_sleep <-weekday_sleep %>%
+  group_by(weekday) %>%
+  summarize (daily_sleep = mean(totalminutesasleep))
+
+head(weekday_sleep)
+```
+
+**Make visualization**
+```{r}
+ggplot(weekday_sleep, aes(weekday, daily_sleep)) +
+  geom_col(fill = "#db7992") +
+  geom_hline(yintercept = 480) +
+  labs(title = "Minutes asleep per weekday", x= "", y = "") +
+  theme(axis.text.x = element_text(angle = 45,vjust = 0.5, hjust = 1))
+```
+
+
+**Discoveries from the above analysis**
+
+-   In the graphs above we can deduce that users don't take the
+    recommended amount of sleep of 8 hours
+
+-   Users take recommended number of 7500 steps a day excepts for
+    Sundays.
+
+**Hourly intensities through the day**
+
+Split the datetime column into date and time columns
